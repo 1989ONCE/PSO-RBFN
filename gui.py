@@ -266,7 +266,10 @@ class gui():
 
     def run_success(self):
         try:
-            params = np.load("success_param.npy")
+            if hasattr(sys, '_MEIPASS'):
+                params = np.load(os.path.join(sys._MEIPASS, "success_param.npy"))
+            else:
+                params = np.load("success_param.npy")
             self.model = RBFN(3, 10, 1)
             self.model.set_params(params)
             self.test_simulation(save_success=False)
